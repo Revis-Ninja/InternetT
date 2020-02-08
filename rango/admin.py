@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article, Category, Page
 
 # @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -7,5 +7,11 @@ class ArticleAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(Category)
+admin.site.register(Page)
+
 
 # Register your models here.
+
+
+
