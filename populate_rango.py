@@ -15,7 +15,7 @@ def populate():
         {'title': 'How to Think like a Computer Scientist',
          'url': 'http://www.greenteapress.com/thinkpython/'},
         {'title': 'Learn Python in 10 Minutes',
-         'url': 'http://www.korokithakis.net/tutorials/python/'}
+         'url': 'http://www.korokithakis.net/tutorials/python/'},
     ]
 
     django_pages = [
@@ -33,9 +33,9 @@ def populate():
         {'title': 'Flask',
          'url': 'http://flask.pocoo.org'}]
 
-    cats = {'Python': {'pages': python_pages},
-            'Django': {'pages': django_pages},
-            'Other Frameworks': {'pages': other_pages}}
+    cats = {'Python': {'pages': python_pages, 'views': 128, 'likes': 64},
+            'Django': {'pages': django_pages,'views': 64,'likes': 32},
+            'Other Frameworks': {'pages': other_pages, 'views': 32, 'likes': 16}}
 
     # If you want to add more categories or pages,
     # add them to the dictionaries above.
@@ -43,9 +43,10 @@ def populate():
     # and then adds all the associated pages for that category.
 
     for cat, cat_data in cats.items():
-        c = add_cat(cat)
+        c = add_cat(cat, views=cat_data['views'], likes=cat_data['likes'])
         for p in cat_data['pages']:
             add_page(c, p['title'], p['url'])
+
     # Print out the categories we have added.
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
@@ -60,8 +61,10 @@ def add_page(cat, title, url, views=0):
     return p
 
 
-def add_cat(name):
+def add_cat(name, views=0, likes=0):
     c = Category.objects.get_or_create(name=name)[0]
+    c.views=views
+    c.likes=likes
     c.save()
     return c
 
