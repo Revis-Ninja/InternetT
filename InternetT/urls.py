@@ -21,11 +21,8 @@ from rango.views import article_detail, article_list, about
 urlpatterns = [
     path('', views.index, name='index'),
     path('rango/', include('rango.urls')),
-    # path('',views.about, name='about'),
-    # path('about/', include('about.urls')),
     path('admin/', admin.site.urls),
-   # path('',views.index),
     path('article/<int:article_id>', article_detail, name="article_detail"),
     path('article/', article_list, name="article_list"),
-    path('rango/about/', about, name = "about")
+
     ]
